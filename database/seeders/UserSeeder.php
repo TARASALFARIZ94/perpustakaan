@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
             'nama'=>'admin',
             'alamat'=>'xxx',
             'telepon'=>'0859',
-            'email'=>'admin1@gmail.com',
+            'email'=>'admin@gmail.com',
             'password'=>Hash::make('admin1234'),
             'jenis'=>'admin'
         ]);

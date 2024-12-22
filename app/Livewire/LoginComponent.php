@@ -11,7 +11,7 @@ class LoginComponent extends Component
     public $email, $password;
     public function render()
     {
-        return view('livewire.login-component');
+        return view('livewire.login-component')->layout('components.layouts.login');
     }
     public function proses(Request $request)
     {
@@ -32,5 +32,15 @@ class LoginComponent extends Component
         return back()->withErrors([
             'email' => 'Authentication failed!',
         ])->onlyInput('email');
+    }
+
+    public function keluar(Request $request){
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+ 
+        $request->session()->regenerateToken();
+ 
+        return redirect()->route('login');
     }
 }

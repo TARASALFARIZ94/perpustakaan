@@ -9,17 +9,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Pinjam extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $table='pinjams';
-    protected $primarykey='id';
-    protected $fillable=['id','buku_id','user_id','tanggal_pinjam','tanggal_pengembalian','status'];
+    protected $table = 'pinjams';
+    protected $primarykey = 'id';
+    protected $fillable = ['id', 'buku_id', 'user_id', 'tgl_peminjaman', 'tgl_pengembalian', 'status'];
 
-    public function user():BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
-    public function buku():BelongsTo
+    public function buku(): BelongsTo
     {
         return $this->belongsTo(Buku::class);
     }

@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class);
             $table->foreignIdFor(model: Buku::class);
-            $table->date('tanggal_pinjam')->nullable();
-            $table->date('tanggal_pengembalian')->nullable();
-            $table->enum('status',['pinjam','kembali'])->nullable();
+            $table->date('tgl_peminjaman')->nullable();
+            $table->date('tgl_pengembalian')->nullable();
+            $table->enum('status', ['pinjam', 'kembali'])->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

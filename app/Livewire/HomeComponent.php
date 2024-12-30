@@ -8,7 +8,7 @@ class HomeComponent extends Component
 {
     public function render()
     {
-        $x['title']='Home Library';
+        $x['title'] = 'Home Library';
         return view('livewire.home-component')->layoutData($x);
     }
 }

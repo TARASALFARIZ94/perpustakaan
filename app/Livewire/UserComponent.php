@@ -35,12 +35,15 @@ class UserComponent extends Component
             'email.email' => 'Email Format Was Wrong!',
             'password.required' => 'The Password Cannot Be Empty!'
         ]);
+
+        // Membuat user baru dengan password yang di-hash
         User::create([
             'nama' => $this->nama,
             'email' => $this->email,
-            'password' => $this->password,
-            'jenis' => 'admin'
+            'password' => bcrypt($this->password), // Gunakan bcrypt
+            'jenis' => 'admin' // Tentukan jenis user
         ]);
+
         session()->flash('success', 'Success Saved!');
         $this->reset();
         return redirect()->route('user');
@@ -55,18 +58,22 @@ class UserComponent extends Component
     public function update()
     {
         $user = User::find($this->id);
-        if ($this->password == "") {
-            $user->update([
-                'nama' => $this->nama,
-                'email' => $this->email
-            ]);
-        } else {
+
+        if (!empty($this->password)) {
+            // Jika password diubah, hash dan update
             $user->update([
                 'nama' => $this->nama,
                 'email' => $this->email,
-                'password' => $this->password
+                'password' => bcrypt($this->password), // Hash password
+            ]);
+        } else {
+            // Jika tidak ada perubahan password, hanya update nama dan email
+            $user->update([
+                'nama' => $this->nama,
+                'email' => $this->email,
             ]);
         }
+
         session()->flash('success', 'Edit Saved!');
         $this->reset();
         return redirect()->route('user');

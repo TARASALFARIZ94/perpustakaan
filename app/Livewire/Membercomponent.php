@@ -21,52 +21,52 @@ class Membercomponent extends Component
             $data['member'] = User::where('jenis','member')->paginate(10);
         }
         $layout['title'] = 'Manage Member';
-        return view('livewire.member-component', $data)->layoutData($layout);
+        return view('livewire.membercomponent', $data)->layoutData($layout);
     }
     public function resetInput()
     {
         $this->validate([
             'nama' => 'required',
+            'address' => 'required',
             'telepon' => 'required',
             'email' => 'required|email',
-            'address' => 'required',
+    
 
         ], [
-            'nama.required' => 'Nama tidak boleh kosong',
-            'telepon.required' => 'Telepon tidak boleh kosong',
-            'email.required' => 'Email tidak boleh kosong',
-            'address.required' => 'Alamat tidak boleh kosong',
+            'nama.required' => 'Name is required',
+            'address.required' => 'Address is required',
+            'telepon.required' => 'Phone Number is required',
+            'email.required' => 'Email is required',
         ]);
         user::create([
-            'name' => $this->nama,
+            'nama' => $this->nama,
+            'alamat' => $this->address,
             'telepon' => $this->telepon,
             'email' => $this->email,
-            'address' => $this->address,
             'jenis' => 'member',
         ]);
-        session()->flash('success', 'Data Berhasil Disimpan');
-        return redirect()->route('/member');
+        session()->flash('success', 'Data Successfully Saved');
+        return redirect()->route('member');
     }
     public function edit($id)
     {
         $member = User::find($id);
-        $this->id = $member->id;
-        $this->nama = $member->name;
+        $this->nama = $member->nama;
+        $this->address = $member->alamat;
         $this->telepon = $member->telepon;
         $this->email = $member->email;
-        $this->address = $member->address;
     }
     public function update()
     {
         $member = User::find($this->id);
         $member->update([
-            'name' => $this->nama,
+            'nama' => $this->nama,
+            'alamat' => $this->address,
             'telepon' => $this->telepon,
             'email' => $this->email,
-            'address' => $this->address,
             'jenis' => 'member'
         ]);
-        session()->flash('success', 'Data Berhasil Diupdate');
+        session()->flash('success', 'Data Successfully Updated');
         return redirect()->route('member');
     }
     public function confirm($id)
@@ -77,7 +77,7 @@ class Membercomponent extends Component
     {
         $member = User::find($this->id);
         $member->delete();
-        session()->flash('success', 'Data Berhasil Dihapus');
+        session()->flash('success', 'Data Successfully Deleted');
         return redirect()->route('member');
     }
 }

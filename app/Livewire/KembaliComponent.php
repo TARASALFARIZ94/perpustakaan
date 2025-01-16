@@ -17,7 +17,7 @@ class KembaliComponent extends Component
     {
         $layout['title'] = 'Pengembalian Buku';
         $data['pinjam'] = pinjam::where('status', 'pinjam')->paginate(10);
-        $data['pengembalian'] = Pengembalian::pagnite(10);
+        $data['pengembalian'] = Pengembalian::paginate(10);
         return view('livewire.kembali-component', $data)->layoutData($layout);
     }
     public function kembali($id)

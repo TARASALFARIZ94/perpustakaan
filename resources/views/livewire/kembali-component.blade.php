@@ -100,7 +100,7 @@
                             Book Title:
                         </div>
                         <div class="col-mb-8">
-                            : {{ $title }}
+                            : {{ $judul }}
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -116,7 +116,7 @@
                             Return date:
                         </div>
                         <div class="col-mb-8">
-                           : {{ $return_date }}
+                           : {{ $tglkembali }}
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -132,7 +132,7 @@
                             Denda:
                         </div>
                         <div class="col-mb-8">
-                           : @if ($this->Status == true)
+                           : @if ($this->status == true)
                                 ya
                             @else
                                 tidak

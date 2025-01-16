@@ -1,49 +1,104 @@
-<div id="dashboard" class="mb-4">
-    <h2>Overview</h2>
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">
-                    <span data-feather="users" class="mr-2"></span> Members
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">Total: {{ $member }}</h5>
-                    <p class="card-text">Active Members</p>
-                </div>
+<div>
+          <div class="content-wrapper">
+            <div class="page-header">
+              <h3 class="page-title">
+                <span class="page-title-icon bg-gradient-primary text-white me-2">
+                  <i class="mdi mdi-home"></i>
+                </span> Library Dashboard
+              </h3>
+              <nav aria-label="breadcrumb">
+                <ul class="breadcrumb">
+                  <li class="breadcrumb-item active" aria-current="page">
+                    <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                  </li>
+                </ul>
+              </nav>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-success mb-3">
-                <div class="card-header">
-                    <span data-feather="book" class="mr-2"></span> Books
+            <div class="row">
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Members <i class="mdi mdi-chart-line mdi-24px float-end"></i>
+                    </h4>
+                    <h2 class="mb-5">Total</h2>
+                    <h6 class="card-text">Active Member</h6>
+                  </div>
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Total: {{ $buku }}</h5>
-                    <p class="card-text">Available Books</p>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-info card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Books <i class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
+                    </h4>
+                    <h2 class="mb-5">Total</h2>
+                    <h6 class="card-text">Available Books</h6>
+                  </div>
                 </div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Loans <i class="mdi mdi-library mdi-24px float-end"></i>
+                    </h4>
+                    <h2 class="mb-5">Active</h2>
+                    <h6 class="card-text">Books on Loan</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4 stretch-card grid-margin">
+                <div class="card bg-gradient-success card-img-holder text-white">
+                  <div class="card-body">
+                    <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
+                    <h4 class="font-weight-normal mb-3">Returns <i class="mdi mdi-notebook-outline mdi-24px float-end"></i>
+                    </h4>
+                    <h2 class="mb-5">Overdue</h2>
+                    <h6 class="card-text">Overdue Books</h6>
+                  </div>
+                </div>
+              </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-warning mb-3">
-                <div class="card-header">
-                    <span data-feather="file-text" class="mr-2"></span> Loans
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+                <div class="card">
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Active: {{ $pinjam }}</h5>
-                    <p class="card-text">Books on Loan</p>
-                </div>
+              </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card text-white bg-danger mb-3">
-                <div class="card-header">
-                    <span data-feather="clock" class="mr-2"></span> Returns
+            <div class="row">
+              <div class="col-12 grid-margin">
+                <div class="card">
                 </div>
-                <div class="card-body">
-                    <h5 class="card-title">Overdue: {{ $kembali }}</h5>
-                    <p class="card-text">Overdue Books</p>
-                </div>
+              </div>
             </div>
-        </div>
-    </div>
+            <div class="row">
+              <div class="col-lg-5 grid-margin stretch-card">
+                <div class="card">
+                  <div class="card-body p-0 d-flex">
+                    <div id="inline-datepicker" class="datepicker datepicker-custom"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-7 grid-margin stretch-card">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 grid-margin stretch-card">
+              </div>
+              <div class="col-md-5 grid-margin stretch-card">
+              </div>
+            </div>
+          </div>
+          <!-- content-wrapper ends -->
+          <!-- partial:partials/_footer.html -->
+          <footer class="footer">
+            <div class="d-sm-flex justify-content-center justify-content-sm-between">
+              <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2025. All rights reserved.</span>
+              <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+            </div>
+          </footer>
+          <!-- partial -->
 </div>

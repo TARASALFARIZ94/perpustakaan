@@ -1,7 +1,7 @@
 <div>
     <div class="card">
         <div class="card-header">
-            Manage member
+            Manage Member
         </div>
         <div class="card-body">
             @if (session()->has('success'))
@@ -16,8 +16,8 @@
                 <tr>
                 <th scope="col">No.</th>
                 <th scope="col">Name</th>
-                <th scope="col">address</th>
-                <th scope="col">ponsel</th>
+                <th scope="col">Address</th>
+                <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
                 <th>Process</th>
                 </tr>
@@ -27,14 +27,14 @@
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$data->nama}}</td>
-                        <td>{{$data->address}}</td>
+                        <td>{{$data->alamat}}</td>
                         <td>{{$data->telepon}}</td>
                         <td>{{$data->email}}</td>       
                         <td>
                             <a href="#" wire:click="edit({{$data->id}})" class="btn btn-sm btn-info" 
-                                data-toggle="modal" data-target="#editpage">Edit</a>
+                                data-bs-toggle="modal" data-bs-target="#editpage">Edit</a>
                             <a href="#" wire:click="confirm({{$data->id}})" 
-                                data-toggle="modal" data-target="#deletepage" class="btn btn-sm btn-danger">Delete</a>
+                                data-bs-toggle="modal" data-bs-target="#deletepage" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>
                 @endforeach
@@ -42,7 +42,7 @@
         </table>
         {{$member->links()}}
         </div>
-        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addpage">Add New</a>
+        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add New</a>
         </div>
         <!-- TAMBAH -->
         <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -62,14 +62,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>telepon</label>
+                            <label>Phone Number</label>
                             <input type="text" class="form-control" wire:model="telepon" value="{{@old('telepon')}}">
                             @error('telepon')
                                 <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>address</label>
+                            <label>Address</label>
                             <textarea wire:model="address" class="form-control" cols="30" rows="10">{{@old
                             ('address')}}"></textarea>
                             @error('address')
@@ -87,7 +87,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" wire:click="store" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
+                    <button type="button" wire:click="resetInput" class="btn btn-primary" data-bs-dismiss="modal">Save</button>
                 </div>
                 </div>
             </div>
@@ -110,14 +110,14 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>address</label>
+                            <label>Address</label>
                             <input type="text" class="form-control" wire:model="address" value="{{@old('address')}}">
                             @error('address')
                                 <small class="form-text text-danger">{{$message}}</small>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label>Telepon</label>
+                            <label>Phone Number</label>
                             <input type="text" class="form-control" wire:model="telepon" value="{{@old('telepon')}}">
                             @error('telepon')
                                 <small class="form-text text-danger">{{$message}}</small>

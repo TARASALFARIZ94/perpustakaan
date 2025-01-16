@@ -42,7 +42,8 @@
                                             <td>
                                                 <a href="#" wire:click="edit({{ $data->id }})"
                                                     class="btn btn-sm btn-info"
-                                                    onclick="$('#editpage').modal('show')">Edit</a>
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editpage">Edit</a>
 
                                                 <!-- For Delete -->
                                                 <a href="#" wire:click="confirm({{ $data->id }})"
@@ -269,5 +270,12 @@
                 setTimeout(() => flashMessage.remove(), 500);
             }, 1000);
         }
+    });
+
+    document.addEventListener('livewire:initialized', function () {
+        Livewire.on('showModal', (modalId) => {
+            let modal = new bootstrap.Modal(document.getElementById(modalId));
+            modal.show();
+        });
     });
 </script>

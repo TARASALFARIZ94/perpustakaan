@@ -22,7 +22,8 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ( $user as $data )
+            @foreach ( $user as $data )
+                    @if($data->jenis == 'admin')
                     <tr>
                         <th scope="row">{{$loop->iteration}}</th>
                         <td>{{$data->nama}}</td>
@@ -31,9 +32,9 @@
                         <td>
                         <a href="#" wire:click="edit({{$data->id}})" class="btn btn-sm btn-info" data-bs-toggle="modal" data-bs-target="#editpage">Edit</a>
                         <a href="#" wire:click="confirm({{$data->id}})" data-bs-toggle="modal" data-bs-target="#deletepage" class="btn btn-sm btn-danger">Delete</a>
-
                         </td>
                     </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

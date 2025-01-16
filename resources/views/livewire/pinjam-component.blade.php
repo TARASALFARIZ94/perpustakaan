@@ -82,7 +82,7 @@
                                         <div class="form-group">
                                             <label>Member</label>
                                             <select wire:model='user' class='form-control'>
-                                                <option value="">Select Book</option>
+                                                <option value="">Select Member</option>
                                                 @foreach ($member as $data)
                                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                                 @endforeach

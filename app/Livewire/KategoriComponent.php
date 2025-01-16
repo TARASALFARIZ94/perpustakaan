@@ -17,6 +17,7 @@ class KategoriComponent extends Component
 
     public function render()
     {
+        $layout['title'] = 'Manage Category';
         $kategori = $this->cari != "" ?
             Kategori::where('nama', 'like', '%' . $this->cari . '%')->paginate(10) :
             Kategori::paginate(10);
@@ -24,6 +25,7 @@ class KategoriComponent extends Component
         return view('livewire.kategori-component', [
             'kategori' => $kategori
         ]);
+
     }
 
     public function store()

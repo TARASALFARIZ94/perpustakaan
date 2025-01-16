@@ -15,7 +15,7 @@ class UserComponent extends Component
     public $nama, $email, $password, $id, $search;
     public function render()
     {
-        $layout['title'] = 'Manage User';
+        $layout['title'] = 'Manage Staff';
         if ($this->search != "") {
             $data['user'] = User::where('nama', 'like', '%' . $this->search . '%')->orwhere('email', 'like', '%' . $this->search . '%')->paginate(10);
         } else {

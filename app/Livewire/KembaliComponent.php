@@ -3,8 +3,9 @@
 namespace App\Livewire;
 
 use App\Models\Pengembalian;
-use App\Models\pinjam;
+use App\Models\Pinjam;
 use Livewire\Component;
+use DateTime;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
@@ -16,7 +17,7 @@ class KembaliComponent extends Component
     public function render()
     {
         $layout['title'] = 'Pengembalian Buku';
-        $data['pinjam'] = pinjam::where('status', 'pinjam')->paginate(10);
+        $data['pinjam'] = Pinjam::where('status', 'pinjam')->paginate(10);
         $data['pengembalian'] = Pengembalian::paginate(10);
         return view('livewire.kembali-component', $data)->layoutData($layout);
     }

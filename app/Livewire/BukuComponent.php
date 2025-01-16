@@ -32,37 +32,39 @@ class BukuComponent extends Component
 
 
     public function store()
-    {
-        $this->validate([
-            'judul' => 'required',
-            'kategori' => 'required',
-            'penulis' => 'required',
-            'penerbit' => 'required',
-            'tahun' => 'required',
-            'isbn' => 'required',
-            'jumlah' => 'required'
-        ], [
-            'judul.required' => 'Book Title Cannot Be Empty!',
-            'kategori.required' => 'Book Category Cannot Be Empty!',
-            'penulis.required' => 'Book Author Cannot Be Empty!',
-            'penerbit.required' => 'Book Publisher Cannot Be Empty!',
-            'tahun.required' => 'Year Of Book Publication Cannot Be Empty!',
-            'isbn.required' => 'Book ISBN Number Cannot Be Empty!',
-            'jumlah.required' => 'Number Of Books Cannot Be Empty!'
-        ]);
-        Buku::create([
-            'judul' => $this->judul,
-            'kategori_id' => $this->kategori,
-            'penulis' => $this->penulis,
-            'penerbit' => $this->penerbit,
-            'tahun' => $this->tahun,
-            'isbn' => $this->isbn,
-            'jumlah' => $this->jumlah
-        ]);
-        $this->reset();
-        session()->flash('success', 'Book is successfully saved!');
-        return redirect()->route('buku');
-    }
+{
+    $this->validate([
+        'judul' => 'required',
+        'kategori' => 'required',
+        'penulis' => 'required',
+        'penerbit' => 'required',
+        'tahun' => 'required',
+        'isbn' => 'required',
+        'jumlah' => 'required'
+    ], [
+        'judul.required' => 'Book Title Cannot Be Empty!',
+        'kategori.required' => 'Book Category Cannot Be Empty!',
+        'penulis.required' => 'Book Author Cannot Be Empty!',
+        'penerbit.required' => 'Book Publisher Cannot Be Empty!',
+        'tahun.required' => 'Year Of Book Publication Cannot Be Empty!',
+        'isbn.required' => 'Book ISBN Number Cannot Be Empty!',
+        'jumlah.required' => 'Number Of Books Cannot Be Empty!'
+    ]);
+
+    Buku::create([
+        'judul' => $this->judul,
+        'kategori_id' => $this->kategori,
+        'penulis' => $this->penulis,
+        'penerbit' => $this->penerbit,
+        'tahun' => $this->tahun,
+        'isbn' => $this->isbn,
+        'jumlah' => $this->jumlah
+    ]);
+
+    $this->resetInput(); // Panggil fungsi resetInput di sini
+    session()->flash('success', 'Book is successfully saved!');
+    return redirect()->route('buku');
+}
 
     public function edit($id)
     {
@@ -79,21 +81,22 @@ class BukuComponent extends Component
 
 
     public function update()
-    {
-        $buku = Buku::find($this->id);
-        $buku->update([
-            'judul' => $this->judul,
-            'kategori_id' => $this->kategori,
-            'penulis' => $this->penulis,
-            'penerbit' => $this->penerbit,
-            'tahun' => $this->tahun,
-            'isbn' => $this->isbn,
-            'jumlah' => $this->jumlah
-        ]);
-        $this->reset();
-        session()->flash('success', 'Book is successfully updated!');
-        return redirect()->route('buku');
-    }
+{
+    $buku = Buku::find($this->id);
+    $buku->update([
+        'judul' => $this->judul,
+        'kategori_id' => $this->kategori,
+        'penulis' => $this->penulis,
+        'penerbit' => $this->penerbit,
+        'tahun' => $this->tahun,
+        'isbn' => $this->isbn,
+        'jumlah' => $this->jumlah
+    ]);
+
+    $this->resetInput(); // Panggil fungsi resetInput di sini
+    session()->flash('success', 'Book is successfully updated!');
+    return redirect()->route('buku');
+}
 
     public function confirm($id)
     {
@@ -110,29 +113,16 @@ class BukuComponent extends Component
     }
 
     public function resetInput()
-    {
-        $this->validate([
-            'nama' => 'required',
-            'address' => 'required',
-            'telepon' => 'required',
-            'email' => 'required|email|unique:users,email',  // Add unique validation
-        ], [
-            'nama.required' => 'Name is required',
-            'address.required' => 'Address is required',
-            'telepon.required' => 'Phone Number is required',
-            'email.required' => 'Email is required',
-            'email.unique' => 'The email has already been taken',  // Custom error message
-        ]);
+{
+    $this->judul = null;
+    $this->kategori = null;
+    $this->penulis = null;
+    $this->penerbit = null;
+    $this->tahun = null;
+    $this->isbn = null;
+    $this->jumlah = null;
+    $this->cari = null;
+    $this->id = null;
+}
 
-        User::create([
-            'nama' => $this->nama,
-            'alamat' => $this->address,
-            'telepon' => $this->telepon,
-            'email' => $this->email,
-            'jenis' => 'member',
-        ]);
-
-        session()->flash('success', 'Data Successfully Saved');
-        return redirect()->route('member');
-    }
 }

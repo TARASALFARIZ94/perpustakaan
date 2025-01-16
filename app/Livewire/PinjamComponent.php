@@ -16,7 +16,7 @@ class PinjamComponent extends Component
     public $id, $user, $buku, $tgl_peminjaman, $tgl_pengembalian, $cari;
     public function render()
     {
-        $data['member'] = User::where('jenis', 'admin')->get();
+        $data['member'] = User::where('jenis', 'member')->get();
         $data['book'] = Buku::all();
         $data['pinjam'] = Pinjam::paginate(10);
         $layout['title'] = 'Borrow Books';

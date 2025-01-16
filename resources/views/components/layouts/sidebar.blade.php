@@ -46,41 +46,10 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
+        <a class="nav-link" href="{{route('kategori')}}">
         <span class="menu-title">Manage Categories</span>
         <i class="mdi mdi-table-large menu-icon"></i>
         </a>
-        <div class="collapse" id="tables">
-        <ul class="nav flex-column sub-menu">
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Fiction</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Non-Fiction</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Religion</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Education and References</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Social and Political</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Arts and Culture</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Health and Medicine</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Technology and Computers</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="pages/tables/basic-table.html">Children</a>
-            </li>
-        </ul>
-        </div>
     </li>
     <li class="nav-item">
         <a class="nav-link" href="{{route('user')}}">

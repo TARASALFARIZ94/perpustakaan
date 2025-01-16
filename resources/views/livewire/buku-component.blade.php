@@ -33,7 +33,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $data->judul }}</td>
-                                            <td>{{ $data->kategori->nama }}</td>
+                                            <td>{{ $data->kategori }}</td>
                                             <td>{{ $data->penulis }}</td>
                                             <td>{{ $data->penerbit }}</td>
                                             <td>{{ $data->tahun }}</td>
@@ -54,17 +54,15 @@
                             </table>
                             {{ $buku->links() }}
                         </div>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addpage">Add New
-                            Book</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add New Book</a>
                     </div>
                     <!-- TAMBAH -->
-                    <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1"
-                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Add Book</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -81,7 +79,11 @@
                                         <div class="form-group">
                                             <label>Category</label>
                                             <select wire:model="kategori" class="form-control">
-                                                <option value="">Choose Category</option>
+                                                <option value="" disabled selected>Choose Category</option>
+                                                <option value="Fiction">Fiction</option>
+                                                <option value="Non-Fiction">Non-Fiction</option>
+                                                <option value="Science">Science</option>
+                                                <option value="History">History</option>
                                                 @foreach ($category as $data)
                                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                                 @endforeach
@@ -133,7 +135,7 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" wire:click="store" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
@@ -146,7 +148,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -230,7 +232,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Delete Book</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>

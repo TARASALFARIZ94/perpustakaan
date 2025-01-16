@@ -50,8 +50,7 @@
                             </table>
                             {{ $pinjam->links() }}
                         </div>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addpage">Add New
-                            Loan</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add New Loan</a>
                     </div>
                     <!-- TAMBAH -->
                     <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1"

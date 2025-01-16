@@ -48,7 +48,7 @@ class KembaliComponent extends Component
         $pinjam = Pinjam::find($this->id);
         Pengembalian::create([
             'pinjam_id' => $this->id,
-            'tgl_kembali' => date('Y-m-d'),
+            'tgl_kembali' => date('Y-M-D'),
             'denda' => $denda
         ]);
         $pinjam->update([

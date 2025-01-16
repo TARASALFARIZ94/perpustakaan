@@ -16,31 +16,39 @@ class LoginComponent extends Component
     public function proses(Request $request)
     {
         $credentials = $this->validate([
-            'email'=>'required',
-            'password'=>'required'
+            'email' => 'required',
+            'password' => 'required'
 
-        ],[
-            'email.required'=>'Email Cannot Be Empty!',
-            'password.required'=>'Password Must Be Filled!'
+        ], [
+            'email.required' => 'Email Cannot Be Empty!',
+            'password.required' => 'Password Must Be Filled!'
         ]);
 
-        if (Auth::attempt($credentials)){
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
- 
-            return redirect()->route('home');
+
+            $user = Auth::user();
+
+            // Cek peran pengguna
+            if ($user->jenis == 'admin') {
+                return redirect()->route('home'); // Dashboard
+            } else {
+                return redirect()->route('home'); // Dashboard
+            }
         }
         return back()->withErrors([
             'email' => 'Authentication failed!',
         ])->onlyInput('email');
     }
 
-    public function keluar(Request $request){
+    public function keluar(Request $request)
+    {
         Auth::logout();
- 
+
         $request->session()->invalidate();
- 
+
         $request->session()->regenerateToken();
- 
+
         return redirect()->route('login');
     }
 }

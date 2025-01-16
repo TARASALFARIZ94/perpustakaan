@@ -31,9 +31,9 @@
                         <td>{{$data->telepon}}</td>
                         <td>{{$data->email}}</td>       
                         <td>
-                            <a href="#" wire:click="edit({{$data->id}})" class="btn btn-sm btn-info" 
+                            <a href="#" wire:click="{{$data->id}}" class="btn btn-sm btn-info" 
                                 data-bs-toggle="modal" data-bs-target="#editpage">Edit</a>
-                            <a href="#" wire:click="confirm({{$data->id}})" 
+                            <a href="#" wire:click="{{$data->id}}" 
                                 data-bs-toggle="modal" data-bs-target="#deletepage" class="btn btn-sm btn-danger">Delete</a>
                         </td>
                     </tr>

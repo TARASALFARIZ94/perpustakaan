@@ -12,11 +12,11 @@ class BukuComponent extends Component
 {
     use WithPagination, WithoutUrlPagination;
     protected $paginationTheme = 'bootstrap';
-    public $kategori, $judul, $penulis, $penerbit, $isbn, $tahun, $jumlah, $cari, $id;
+    public $kategori, $judul, $penulis, $penerbit, $isbn, $tahun, $jumlah, $cari, $selectedId;
     public function render()
     {
         if ($this->cari != "") {
-            $data['buku'] = Buku::where('judul', 'like', '%' . $this->cari . '%')->paginate(10);
+            $data['buku'] = Buku::where('judul', 'like', '%' , $this->cari . '%')->paginate(10);
         } else {
             $data['buku'] = Buku::paginate(10);
         }
@@ -58,12 +58,12 @@ class BukuComponent extends Component
         return redirect()->route('buku');
     }
 
-    public function edit($id)
+    public function edit($selectedId)
     {
-        $buku = Buku::find($id);
-        $this->id = $buku->id;
+        $buku = Buku::find($selectedId);
+        $this->id = $buku->selectedId;
         $this->judul = $buku->judul;
-        $this->kategori = $buku->kategori->id;
+        $this->kategori = $buku->kategori;
         $this->penulis = $buku->penulis;
         $this->penerbit = $buku->penerbit;
         $this->tahun = $buku->tahun;
@@ -73,7 +73,7 @@ class BukuComponent extends Component
 
     public function update()
     {
-        $buku = Buku::find($this->id);
+        $buku = Buku::find($this->selectedId);
         $buku->update([
             'judul' => $this->judul,
             'kategori_id' => $this->kategori,
@@ -90,15 +90,21 @@ class BukuComponent extends Component
 
     public function confirm($id)
     {
-        $this->id = $id;
+        $this->selectedId = $id;
     }
 
-    public function destroy()
+        public function destroy()
     {
-        $buku = Buku::find($this->id);
-        $buku->delete();
+        $buku = Buku::find($this->selectedId);
+
+        if ($buku) {
+            $buku->delete();
+            session()->flash('success', 'Book is successfully deleted!');
+        } else {
+            session()->flash('error', 'Book not found or already deleted!');
+        }
+
         $this->reset();
-        session()->flash('success', 'Book is successfully deleted!');
         return redirect()->route('buku');
     }
 }

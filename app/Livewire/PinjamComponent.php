@@ -67,6 +67,7 @@ class PinjamComponent extends Component
         $this->tgl_pengembalian = $pinjam->tgl_pengembalian;
     }
 
+
     public function update()
     {
         $kategori = Pinjam::find($this->id);

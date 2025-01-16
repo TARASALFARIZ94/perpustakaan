@@ -4,24 +4,26 @@ namespace App\Livewire;
 
 use App\Models\Kategori;
 use Livewire\Component;
-use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 class KategoriComponent extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use WithPagination;
+
     protected $paginationTheme = 'bootstrap';
-    public $nama, $id, $deskripsi, $cari;
+    public $nama, $kategori_id, $deskripsi, $cari;
+
+    protected $listeners = ['resetForm'];
+
     public function render()
     {
-        if ($this->cari != "") {
-            $data['kategori'] = Kategori::where('nama', 'like', '%' . $this->cari . '%')->paginate(10);
-        } else {
-            $data['kategori'] = Kategori::paginate(10);
-        }
+        $kategori = $this->cari != "" ?
+            Kategori::where('nama', 'like', '%' . $this->cari . '%')->paginate(10) :
+            Kategori::paginate(10);
 
-        $layout['title'] = 'Manage Books Category';
-        return view('livewire.kategori-component', $data)->layoutData($layout);
+        return view('livewire.kategori-component', [
+            'kategori' => $kategori
+        ]);
     }
 
     public function store()
@@ -29,50 +31,50 @@ class KategoriComponent extends Component
         $this->validate([
             'nama' => 'required',
             'deskripsi' => 'required'
-        ], [
-            'nama.required' => 'Category Name Cannot Be Empty!',
-            'deskripsi.required' => 'Category Description Cannot Be Empty!'
         ]);
+
         Kategori::create([
             'nama' => $this->nama,
             'deskripsi' => $this->deskripsi
         ]);
-        $this->reset();
-        session()->flash('success', 'Category is successfully saved!');
-        return redirect()->route('kategori');
+
+        $this->reset(['nama', 'deskripsi']);
+        session()->flash('success', 'Category successfully saved!');
     }
 
-    public function edit($id)
+    public function edit($kategori_id)
     {
-        $kategori = Kategori::find($id);
-        $this->id = $kategori->id;
+        $kategori = Kategori::find($kategori_id);
+        $this->kategori_id = $kategori->id;
         $this->nama = $kategori->nama;
         $this->deskripsi = $kategori->deskripsi;
     }
 
     public function update()
     {
-        $kategori = Kategori::find($this->id);
+        $kategori = Kategori::find($this->kategori_id);
         $kategori->update([
             'nama' => $this->nama,
             'deskripsi' => $this->deskripsi
         ]);
-        $this->reset();
-        session()->flash('success', 'Category is successfully updated!');
-        return redirect()->route('kategori');
+        session()->flash('success', 'Category successfully updated!');
+        $this->reset(['nama', 'deskripsi']);
     }
 
-    public function confirm($id)
+    public function confirm($kategori_id)
     {
-        $this->id = $id;
+        $this->kategori_id = $kategori_id;
     }
 
     public function destroy()
     {
-        $kategori = Kategori::find($this->id);
+        $kategori = Kategori::find($this->kategori_id);
         $kategori->delete();
-        $this->reset();
-        session()->flash('success', 'Category is successfully deleted!');
-        return redirect()->route('kategori');
+        session()->flash('success', 'Category successfully deleted!');
+    }
+
+    public function resetForm()
+    {
+        $this->reset(['nama', 'deskripsi', 'kategori_id']);
     }
 }

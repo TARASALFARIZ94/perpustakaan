@@ -37,12 +37,13 @@
                                             <td>{{ $data->status }}</td>
                                             <td>
                                                 <a href="#" wire:click="edit({{ $data->id }})"
-                                                    class="btn btn-sm btn-info" data-toggle="modal"
-                                                    data-target="#editpage">Edit</a>
+                                                    class="btn btn-sm btn-info"
+                                                    onclick="$('#editpage').modal('show')">Edit</a>
 
+                                                <!-- For Delete -->
                                                 <a href="#" wire:click="confirm({{ $data->id }})"
-                                                    data-toggle="modal" data-target="#deletepage"
-                                                    class="btn btn-sm btn-danger">Delete</a>
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="$('#deletepage').modal('show')">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -50,7 +51,8 @@
                             </table>
                             {{ $pinjam->links() }}
                         </div>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add New Loan</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add
+                            New Loan</a>
                     </div>
                     <!-- TAMBAH -->
                     <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1"
@@ -113,20 +115,20 @@
                                     <form>
                                         <div class="form-group">
                                             <label>Book Title</label>
-                                            <select wire:model='buku' class='form-control'>
+                                            <select wire:model="buku" class="form-control">
                                                 <option value="">Select Book</option>
                                                 @foreach ($book as $data)
                                                     <option value="{{ $data->id }}">{{ $data->judul }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('judul')
+                                            @error('buku')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Member</label>
-                                            <select wire:model='user' class='form-control'>
-                                                <option value="">Select Book</option>
+                                            <select wire:model="user" class="form-control">
+                                                <option value="">Select Member</option>
                                                 @foreach ($member as $data)
                                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                                 @endforeach
@@ -136,16 +138,16 @@
                                             @enderror
                                         </div>
                                     </form>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="button" wire:click="update"
-                                            class="btn btn-primary">Save</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" wire:click="update" class="btn btn-primary">Save
+                                        Changes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- DELETE -->
                     <div wire:ignore.self class="modal fade" id="deletepage" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -158,13 +160,13 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Delete This Borrowing Book Data?</p>
+                                    <p>Are you sure you want to delete this borrowing record?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
                                         data-dismiss="modal">Close</button>
                                     <button type="button" wire:click="destroy" class="btn btn-primary"
-                                        data-dismiss="modal">Yes</button>
+                                        data-dismiss="modal">Yes, Delete</button>
                                 </div>
                             </div>
                         </div>

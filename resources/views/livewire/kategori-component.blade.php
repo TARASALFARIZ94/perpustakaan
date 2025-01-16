@@ -4,7 +4,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        Manage Books Category
+                        Manage Categories
                     </div>
                     <div class="card-body">
                         @if (session()->has('success'))
@@ -19,6 +19,7 @@
                                     <tr>
                                         <th scope="col">No.</th>
                                         <th scope="col">Category Name</th>
+                                        <th scope="col">Description</th>
                                         <th>Process</th>
                                     </tr>
                                 </thead>
@@ -27,14 +28,16 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $data->nama }}</td>
+                                            <td>{{ $data->deskripsi }}</td>
                                             <td>
                                                 <a href="#" wire:click="edit({{ $data->id }})"
-                                                    class="btn btn-sm btn-info" data-toggle="modal"
-                                                    data-target="#editpage">Edit</a>
+                                                    class="btn btn-sm btn-info"
+                                                    onclick="$('#editpage').modal('show')">Edit</a>
 
+                                                <!-- For Delete -->
                                                 <a href="#" wire:click="confirm({{ $data->id }})"
-                                                    data-toggle="modal" data-target="#deletepage"
-                                                    class="btn btn-sm btn-danger">Delete</a>
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="$('#deletepage').modal('show')">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -42,34 +45,33 @@
                             </table>
                             {{ $kategori->links() }}
                         </div>
-                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addpage">Add New
-                            Category</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage"
+                            wire:click="resetForm">Add New Category</a>
                     </div>
-                    <!-- TAMBAH -->
+
+                    <!-- ADD Modal -->
                     <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Add Category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <form>
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" wire:model="nama"
-                                                value="{{ @old('nama') }}">
+                                            <label>Category Name</label>
+                                            <input type="text" class="form-control" wire:model="nama">
                                             @error('nama')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
                                             <label>Description</label>
-                                            <textarea wire:model="deskripsi" class="form-control" cols="30" rows="10">{{ @old('deskripsi') }}
-                                            </textarea>
+                                            <textarea class="form-control" wire:model="deskripsi" cols="30" rows="10"></textarea>
                                             @error('deskripsi')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
@@ -77,77 +79,78 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="button" wire:click="store" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- EDIT -->
+
+                    <!-- EDIT Modal -->
                     <div wire:ignore.self class="modal fade" id="editpage" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
                                     <form>
                                         <div class="form-group">
-                                            <label>Name</label>
-                                            <input type="text" class="form-control" wire:model="nama"
-                                                value="{{ @old('nama') }}">
+                                            <label>Category Name</label>
+                                            <input type="text" class="form-control" wire:model="nama">
                                             @error('nama')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label>deskripsi</label>
-                                            <textarea wire:model="deskripsi" class="form-control" cols="30" rows="10">{{ @old('deskripsi') }}"
-                                            </textarea>
+                                            <label>Description</label>
+                                            <textarea class="form-control" wire:model="deskripsi" cols="30" rows="10"></textarea>
                                             @error('deskripsi')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
                                     </form>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary"
-                                            data-dismiss="modal">Close</button>
-                                        <button type="button" wire:click="update" class="btn btn-primary">Save</button>
-                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" wire:click="update" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <!-- DELETE -->
+
+                    <!-- DELETE Modal -->
                     <div wire:ignore.self class="modal fade" id="deletepage" tabindex="-1"
                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Delete Category</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                        aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <p>Delete This Category?</p>
+                                    <p>Are you sure you want to delete this category?</p>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Close</button>
-                                    <button type="button" wire:click="destroy" class="btn btn-primary"
-                                        data-dismiss="modal">Yes</button>
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="button" wire:click="destroy" class="btn btn-danger"
+                                        data-bs-dismiss="modal">Yes</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

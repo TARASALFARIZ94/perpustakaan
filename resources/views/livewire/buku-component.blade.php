@@ -33,7 +33,7 @@
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
                                             <td>{{ $data->judul }}</td>
-                                            <td>{{ $data->kategori }}</td>
+                                            <td>{{ $data->kategori->nama ?? 'No Category' }}</td>
                                             <td>{{ $data->penulis }}</td>
                                             <td>{{ $data->penerbit }}</td>
                                             <td>{{ $data->tahun }}</td>
@@ -41,12 +41,13 @@
                                             <td>{{ $data->jumlah }}</td>
                                             <td>
                                                 <a href="#" wire:click="edit({{ $data->id }})"
-                                                    class="btn btn-sm btn-info" data-toggle="modal"
-                                                    data-target="#editpage">Edit</a>
+                                                    class="btn btn-sm btn-info"
+                                                    onclick="$('#editpage').modal('show')">Edit</a>
 
+                                                <!-- For Delete -->
                                                 <a href="#" wire:click="confirm({{ $data->id }})"
-                                                    data-toggle="modal" data-target="#deletepage"
-                                                    class="btn btn-sm btn-danger">Delete</a>
+                                                    class="btn btn-sm btn-danger"
+                                                    onclick="$('#deletepage').modal('show')">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -54,10 +55,12 @@
                             </table>
                             {{ $buku->links() }}
                         </div>
-                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add New Book</a>
+                        <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addpage">Add
+                            New Book</a>
                     </div>
                     <!-- TAMBAH -->
-                    <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div wire:ignore.self class="modal fade" id="addpage" tabindex="-1"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -76,14 +79,11 @@
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+                                        <!-- Category Select -->
                                         <div class="form-group">
                                             <label>Category</label>
                                             <select wire:model="kategori" class="form-control">
                                                 <option value="" disabled selected>Choose Category</option>
-                                                <option value="Fiction">Fiction</option>
-                                                <option value="Non-Fiction">Non-Fiction</option>
-                                                <option value="Science">Science</option>
-                                                <option value="History">History</option>
                                                 @foreach ($category as $data)
                                                     <option value="{{ $data->id }}">{{ $data->nama }}</option>
                                                 @endforeach
@@ -92,6 +92,7 @@
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>
+
                                         <div class="form-group">
                                             <label>Author</label>
                                             <input type="text" class="form-control" wire:model="penulis"
@@ -135,7 +136,8 @@
                                     </form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
                                     <button type="button" wire:click="store" class="btn btn-primary">Save</button>
                                 </div>
                             </div>
@@ -148,7 +150,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Edit Book</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                        aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
@@ -232,7 +235,8 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Delete Book</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <button type="button" class="close" data-bs-dismiss="modal"
+                                        aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>

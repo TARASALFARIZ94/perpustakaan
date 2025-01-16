@@ -12,18 +12,24 @@ class BukuComponent extends Component
 {
     use WithPagination, WithoutUrlPagination;
     protected $paginationTheme = 'bootstrap';
-    public $kategori, $judul, $penulis, $penerbit, $isbn, $tahun, $jumlah, $cari, $selectedId;
+    public $kategori, $judul, $penulis, $penerbit, $isbn, $tahun, $jumlah, $cari, $id;
     public function render()
     {
+        // Fetch books based on search
         if ($this->cari != "") {
-            $data['buku'] = Buku::where('judul', 'like', '%' , $this->cari . '%')->paginate(10);
+            $data['buku'] = Buku::where('judul', 'like', '%' . $this->cari . '%')->paginate(10);
         } else {
             $data['buku'] = Buku::paginate(10);
         }
+
+        // Fetch categories from the database
         $data['category'] = Kategori::all();
+
         $layout['title'] = 'Manage Books';
+
         return view('livewire.buku-component', $data)->layoutData($layout);
     }
+
 
     public function store()
     {
@@ -58,12 +64,12 @@ class BukuComponent extends Component
         return redirect()->route('buku');
     }
 
-    public function edit($selectedId)
+    public function edit($id)
     {
-        $buku = Buku::find($selectedId);
-        $this->id = $buku->selectedId;
+        $buku = Buku::find($id);
+        $this->id = $buku->id;
         $this->judul = $buku->judul;
-        $this->kategori = $buku->kategori;
+        $this->kategori = $buku->kategori_id;  // Update to use kategori_id
         $this->penulis = $buku->penulis;
         $this->penerbit = $buku->penerbit;
         $this->tahun = $buku->tahun;
@@ -71,9 +77,10 @@ class BukuComponent extends Component
         $this->jumlah = $buku->jumlah;
     }
 
+
     public function update()
     {
-        $buku = Buku::find($this->selectedId);
+        $buku = Buku::find($this->id);
         $buku->update([
             'judul' => $this->judul,
             'kategori_id' => $this->kategori,
@@ -90,21 +97,42 @@ class BukuComponent extends Component
 
     public function confirm($id)
     {
-        $this->selectedId = $id;
+        $this->id = $id;
     }
 
-        public function destroy()
+    public function destroy()
     {
-        $buku = Buku::find($this->selectedId);
-
-        if ($buku) {
-            $buku->delete();
-            session()->flash('success', 'Book is successfully deleted!');
-        } else {
-            session()->flash('error', 'Book not found or already deleted!');
-        }
-
+        $buku = Buku::find($this->id);
+        $buku->delete();
         $this->reset();
+        session()->flash('success', 'Book is successfully deleted!');
         return redirect()->route('buku');
+    }
+
+    public function resetInput()
+    {
+        $this->validate([
+            'nama' => 'required',
+            'address' => 'required',
+            'telepon' => 'required',
+            'email' => 'required|email|unique:users,email',  // Add unique validation
+        ], [
+            'nama.required' => 'Name is required',
+            'address.required' => 'Address is required',
+            'telepon.required' => 'Phone Number is required',
+            'email.required' => 'Email is required',
+            'email.unique' => 'The email has already been taken',  // Custom error message
+        ]);
+
+        User::create([
+            'nama' => $this->nama,
+            'alamat' => $this->address,
+            'telepon' => $this->telepon,
+            'email' => $this->email,
+            'jenis' => 'member',
+        ]);
+
+        session()->flash('success', 'Data Successfully Saved');
+        return redirect()->route('member');
     }
 }

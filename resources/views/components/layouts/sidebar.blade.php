@@ -40,12 +40,6 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="{{route('kembali')}}">
-        <span class="menu-title">Manage Returns</span>
-        <i class="mdi mdi-library menu-icon"></i>
-        </a>
-    </li>
-    <li class="nav-item">
         <a class="nav-link" href="{{route('kategori')}}">
         <span class="menu-title">Manage Categories</span>
         <i class="mdi mdi-table-large menu-icon"></i>

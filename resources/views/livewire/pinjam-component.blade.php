@@ -30,7 +30,7 @@
                                     @foreach ($pinjam as $data)
                                         <tr>
                                             <th scope="row">{{ $loop->iteration }}</th>
-                                            <td>{{ $data->buku->judul }}</td>
+                                            <td>{{ $data->buku->title }}</td>
                                             <td>{{ $data->user->nama }}</td>
                                             <td>{{ $data->tgl_peminjaman }}</td>
                                             <td>{{ $data->tgl_pengembalian }}</td>

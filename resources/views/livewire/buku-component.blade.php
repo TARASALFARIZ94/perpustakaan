@@ -70,7 +70,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form>
+                                    <form wire:submit.prevent="store">
                                         <div class="form-group">
                                             <label>Book Title</label>
                                             <input type="text" class="form-control" wire:model="judul"

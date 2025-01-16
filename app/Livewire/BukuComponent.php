@@ -51,51 +51,24 @@ class BukuComponent extends Component
         'jumlah.required' => 'Number Of Books Cannot Be Empty!'
     ]);
 
-    Buku::create([
-        'judul' => $this->judul,
-        'kategori_id' => $this->kategori,
-        'penulis' => $this->penulis,
-        'penerbit' => $this->penerbit,
-        'tahun' => $this->tahun,
-        'isbn' => $this->isbn,
-        'jumlah' => $this->jumlah
-    ]);
+    try {
+        Buku::create([
+            'judul' => $this->judul,
+            'kategori_id' => $this->kategori,
+            'penulis' => $this->penulis,
+            'penerbit' => $this->penerbit,
+            'tahun' => $this->tahun,
+            'isbn' => $this->isbn,
+            'jumlah' => $this->jumlah
+        ]);
 
-    $this->resetInput(); // Panggil fungsi resetInput di sini
-    session()->flash('success', 'Book is successfully saved!');
-    return redirect()->route('buku');
-}
-
-    public function edit($id)
-    {
-        $buku = Buku::find($id);
-        $this->id = $buku->id;
-        $this->judul = $buku->judul;
-        $this->kategori = $buku->kategori_id;  // Update to use kategori_id
-        $this->penulis = $buku->penulis;
-        $this->penerbit = $buku->penerbit;
-        $this->tahun = $buku->tahun;
-        $this->isbn = $buku->isbn;
-        $this->jumlah = $buku->jumlah;
+        $this->resetInput();
+        $this->dispatch('closeModal');
+        session()->flash('success', 'Book is successfully saved!');
+        return redirect()->route('buku');
+    } catch (\Exception $e) {
+        session()->flash('error', $e->getMessage());
     }
-
-
-    public function update()
-{
-    $buku = Buku::find($this->id);
-    $buku->update([
-        'judul' => $this->judul,
-        'kategori_id' => $this->kategori,
-        'penulis' => $this->penulis,
-        'penerbit' => $this->penerbit,
-        'tahun' => $this->tahun,
-        'isbn' => $this->isbn,
-        'jumlah' => $this->jumlah
-    ]);
-
-    $this->resetInput(); // Panggil fungsi resetInput di sini
-    session()->flash('success', 'Book is successfully updated!');
-    return redirect()->route('buku');
 }
 
     public function confirm($id)

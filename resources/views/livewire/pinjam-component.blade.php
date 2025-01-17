@@ -75,7 +75,7 @@
                                                     <option value="{{ $data->id }}">{{ $data->judul }}</option>
                                                 @endforeach
                                             </select>
-                                            @error('judul')
+                                            @error('buku')
                                                 <small class="form-text text-danger">{{ $message }}</small>
                                             @enderror
                                         </div>

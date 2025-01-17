@@ -17,16 +17,17 @@ class PinjamComponent extends Component
     public function render()
     {
         $data['member'] = User::where('jenis', 'member')->get();
-        $data['book'] = Buku::all();
-        $data['pinjam'] = Pinjam::paginate(10);
+        $data['book'] = Buku::where('jumlah', '>', 0)->get();
+        $data['pinjam'] = Pinjam::with(['buku', 'user'])->paginate(10);
         $layout['title'] = 'Borrow Books';
 
         if ($this->cari != "") {
-            $data['pinjam'] = Pinjam::whereHas('buku', function ($query) {
-                $query->where('judul', 'like', '%' . $this->cari . '%');
-            })->paginate(10);
+            $data['pinjam'] = Pinjam::with(['buku', 'user'])
+                ->whereHas('buku', function ($query) {
+                    $query->where('judul', 'like', '%' . $this->cari . '%');
+                })->paginate(10);
         } else {
-            $data['pinjam'] = Pinjam::paginate(10);
+            $data['pinjam'] = Pinjam::with(['buku', 'user'])->paginate(10);
         }
 
         return view('livewire.pinjam-component', $data)->layoutData($layout);
